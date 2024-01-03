@@ -8,5 +8,4 @@ urlpatterns = [
     path('cars/',views.cars_index, name= 'cars_index'),
 
 
-
 ]
