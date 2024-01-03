@@ -30,7 +30,7 @@
               <a class='nav-link' href='{% url "cars_index" %}'>Our Cars</a>
             </li>
             <li class='nav-item'>
-              <a class='nav-link' href='#'>Rent a Car</a>
+              <a class='nav-link' href='{% url "rentals_create" %}'>Rent a Car</a>
             </li>
             <li class="nav-item">
               <form action='{% url "logout" %}' method='POST'>
