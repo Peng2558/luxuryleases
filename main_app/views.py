@@ -28,15 +28,15 @@ def cars_index(request):
       'cars':cars
   })
 
-class RentalCreate(CreateView):
-    model = Rental
-    fields = ['pickup_date','dropoff_date','dropoff_location','car']
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
-
+def rentals_create(request):
+    stores = Store.objects.all()
+    cars = Car.objects.all()
+    print(f'{request.GET}')
+    return render(request, 'main_app/rental_form.html/', {
+            'stores': stores,
+            'cars': cars
+    })
 
 
 def signup(request):
