@@ -77,3 +77,12 @@ def rentals_create(request):
     )
     new_rental.save()
     return redirect('rentals_new')
+
+def users_detail(request, user_id):
+    user= User.objects.get(id=user_id)
+    return render(request, 'users/detail.html',{
+       
+       'user':user
+
+    })
+    
