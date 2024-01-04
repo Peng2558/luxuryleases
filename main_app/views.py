@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import login
+from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -26,6 +27,15 @@ def cars_index(request):
   return render(request,'cars/index.html',{
       'cars':cars
   })
+
+class RentalCreate(CreateView):
+    model = Rental
+    fields = ['pickup_date','dropoff_date','dropoff_location','car']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
 
 
 
