@@ -2,4 +2,21 @@
 
 {% block content %}
   <h1>User Page</h1>
+
+  <style>
+    #rental:hover{
+      background-color: lightgray;
+    }
+  </style>
+
+  <h2>My Rentals</h2>
+  {% for rental in rentals %}
+  <a href="{% url 'rental_detail' rental.id %}" style="text-decoration: none;">
+    <div id="rental" class="card">
+      <div class="card-body">
+        <div class="card-title">Trip from: {{ rental.car.current_store }} To: {{ rental.dropoff_location }}</div>{{ rental. }}
+      </div>
+    </div>
+  </a>  
+  {% endfor %}
 {% endblock %}
