@@ -1,48 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-    #tutorial {
-        visibility: hidden;
-    }
-</style>
-
 <h1>New Rental</h1>
 
-
-<form id="select" action="" method="POST">
+<form action="{% url 'rentals_create' %}" method="POST">
     {% csrf_token %}
-    <label class="form-text">Pick Up Location:</label>
-    <select id="pul" name="select_store">
-        <option value="">Select A Location</option>
-        {% for store in stores %}
-            {% if request.GET.select_store == store.id %}
-                <option selected value="{{ store.id }}">{{ store.name }}</option>
-            {% else %}
-                <option value="{{ store.id }}">{{ store.name }}</option>
+    <label class="form-text">Car</label>
+    <select name="car">
+        {% for car in cars %}
+            {% if car.current_store.name == request.session.selected_store %}
+                <option value="{{ car.id }}">{{ car.make }}</option>
             {% endif %}
         {% endfor %}
+        <button type="submit">Submit</button>
     </select>
-    <button type="submit">Submit</button>
-</form>
-<hr>
-
-<form id="tutorial" action="" method="POST">
-    {% csrf_token %}
-    <label class="form-text">Drop Off:</label>
+    <br>
+    <label class="form-text">Pick Up Date:</label>
+    <input type="datetime-local" name="pickup_date">
+    <br>
+    <label class="form-text">Drop Off Date:</label>
+    <input type="datetime-local" name="dropoff_date">
+    <br>
+    <label class="form-text">Drop Off Location:</label>
     <select name="dropoff_location">
         <option value="">Select A Location</option>
         {% for store in stores %}
             <option value="{{ store.id }}">{{ store.name }}</option>
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </select>
-    <label class="form-text">Car</label>
-    <select name="cars">
-        {% for car in cars %}
-            {% if car.current_store_id == 1 %}
-                <option value="{{ car.id }}">{{ car.make }}</option>
-            {% endif %}
         {% endfor %}
         <button type="submit">Submit</button>
     </select>
@@ -52,16 +35,5 @@
 
 <form id="guess" name="guess"></form>
 
-<script>
-    const el = document.getElementById('select');
-    const box = document.getElementById('tutorial');
-    const guess = document.getElementById('guess')
-    const textEl = document.getElementById('pul');
-    el.addEventListener('change', function handleChange(event) {
-        box.style.visibility = 'visible';
-        text = textEl.options[textEl.selectedIndex].value;
-        guess.innerText = text;
-    });
-</script>
 
 {% endblock %}

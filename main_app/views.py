@@ -34,7 +34,7 @@ def stores_index(request):
         'stores': stores,
     })
 
-def rentals_create(request):
+def rentals_new(request):
     stores = Store.objects.all()
     cars = Car.objects.all()
     print(f'{request.GET}')
@@ -66,3 +66,14 @@ def select_store(request, store_id):
     request.session['selected_store'] = Store.objects.get(id=store_id).name
     return redirect('stores_index')
 
+def rentals_create(request):
+    new_rental = Rental.objects.create(
+        pickup_date=request.POST['pickup_date'],
+        dropoff_date=request.POST['dropoff_date'],
+        dropoff_location=Store.objects.get(id=request.POST['dropoff_location']),
+        car=Car.objects.get(id=request.POST['car']),
+        user=request.user,
+        rental_fee=400
+    )
+    new_rental.save()
+    return redirect('rentals_new')

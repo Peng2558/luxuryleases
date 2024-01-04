@@ -32,13 +32,13 @@ class CreditCard(models.Model):
     return f'{self.card_holder.last_name} {self.card_type}'
 
 class Rental(models.Model):
-  pickup_date = models.DateField()
-  dropoff_date = models.DateField()
+  pickup_date = models.DateTimeField()
+  dropoff_date = models.DateTimeField()
   dropoff_location = models.ForeignKey(Store, on_delete=models.CASCADE)
   car = models.ForeignKey(Car, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   rental_fee = models.FloatField()
-  card_on_file = models.ForeignKey(CreditCard, on_delete=models.CASCADE)
+  card_on_file = models.ForeignKey(CreditCard, on_delete=models.CASCADE, default=1)
 
   def __str__(self):
     return f'{self.user.last_name} - {self.car} - Start: {self.pickup_date}'
