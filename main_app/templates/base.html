@@ -29,9 +29,18 @@
             <li class='nav-item'>
               <a class='nav-link' href='{% url "cars_index" %}'>Our Cars</a>
             </li>
-            <li class='nav-item'>
-              <a class='nav-link' href='{% url "rentals_create" %}'>Rent a Car</a>
-            </li>
+            {% if selected_store %}
+              <li class='nav-item'>
+                <a class='nav-link' href='{% url "stores_index" %}'>{{ selected_store.name }}</a>
+              </li>
+              <li class='nav-item'>
+                <a class='nav-link' href='{% url "rentals_create" %}'>Rent a Car</a>
+              </li>
+            {% else %}
+              <li class='nav-item'>
+                <a class='nav-link' href='{% url "stores_index" %}'>Choose a Store</a>
+              </li>
+            {% endif %}
             <li class="nav-item">
               <form action='{% url "logout" %}' method='POST'>
                 {% csrf_token %}
