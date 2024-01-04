@@ -24,15 +24,14 @@ def about(request):
 
 def cars_index(request):
   cars= Car.objects.all()
-  return render(request,'cars/index.html',{
-      'cars':cars
+  return render(request,'cars/index.html', {
+      'cars': cars
   })
 
 def stores_index(request):
     stores = Store.objects.all()
-    return render(request,'stores/index.html',{
-     'stores': stores
-
+    return render(request,'stores/index.html', {
+        'stores': stores,
     })
 
 def rentals_create(request):
@@ -41,7 +40,7 @@ def rentals_create(request):
     print(f'{request.GET}')
     return render(request, 'main_app/rental_form.html/', {
             'stores': stores,
-            'cars': cars
+            'cars': cars,
     })
 
 
@@ -62,3 +61,8 @@ def signup(request):
         'form': form,
         'error_message': error_message
     })
+
+def select_store(request, store_id):
+    request.session['selected_store'] = Store.objects.get(id=store_id).name
+    return redirect('stores_index')
+

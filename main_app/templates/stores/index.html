@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Store Index Page</h1> 
+  <h1>Store Index Page</h1>
+  
+  {% for store in stores %}
+    <form action='{% url "select_store" store.id %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>{{ store.name }}</button>
+    </form>
+  {% endfor %}
 {% endblock %}
