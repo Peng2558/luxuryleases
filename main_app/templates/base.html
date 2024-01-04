@@ -27,6 +27,9 @@
           </li>
           {% if user.is_authenticated %}
             <li class='nav-item'>
+              <a class='nav-link' href='{% url "users_detail" user.id %}'>Your Profile</a>
+            </li>
+            <li class='nav-item'>
               <a class='nav-link' href='{% url "cars_index" %}'>Our Cars</a>
             </li>
             {% if request.session.selected_store %}
