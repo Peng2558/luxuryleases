@@ -29,9 +29,9 @@
             <li class='nav-item'>
               <a class='nav-link' href='{% url "cars_index" %}'>Our Cars</a>
             </li>
-            {% if selected_store %}
+            {% if request.session.selected_store %}
               <li class='nav-item'>
-                <a class='nav-link' href='{% url "stores_index" %}'>{{ selected_store.name }}</a>
+                <a class='nav-link' href='{% url "stores_index" %}'>{{ request.session.selected_store }}</a>
               </li>
               <li class='nav-item'>
                 <a class='nav-link' href='{% url "rentals_create" %}'>Rent a Car</a>
