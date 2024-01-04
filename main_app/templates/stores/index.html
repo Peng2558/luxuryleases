@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-  <h1>Store Index Page</h1>
+  <h1>Our Store Locations</h1>
   
   {% for store in stores %}
     <form action='{% url "select_store" store.id %}' method='POST'>

@@ -1,39 +1,35 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>New Rental</h1>
+  <h1>New Rental</h1>
 
-<form action="{% url 'rentals_create' %}" method="POST">
+  <form action='{% url "rentals_create" %}' method='POST'>
     {% csrf_token %}
-    <label class="form-text">Car</label>
-    <select name="car">
-        {% for car in cars %}
-            {% if car.current_store.name == request.session.selected_store %}
-                <option value="{{ car.id }}">{{ car.make }}</option>
-            {% endif %}
-        {% endfor %}
-        <button type="submit">Submit</button>
+
+    <label>Car:</label>
+    <select name='car'>
+      <option value=''>Select a car</option>
+      {% for car in cars %}
+        {% if car.current_store.name == request.session.selected_store %}
+          <option value='{{ car.id }}'>{{ car.make }}</option>
+        {% endif %}
+      {% endfor %}
     </select>
-    <br>
-    <label class="form-text">Pick Up Date:</label>
-    <input type="datetime-local" name="pickup_date">
-    <br>
-    <label class="form-text">Drop Off Date:</label>
-    <input type="datetime-local" name="dropoff_date">
-    <br>
-    <label class="form-text">Drop Off Location:</label>
-    <select name="dropoff_location">
-        <option value="">Select A Location</option>
-        {% for store in stores %}
-            <option value="{{ store.id }}">{{ store.name }}</option>
-        {% endfor %}
-        <button type="submit">Submit</button>
+
+    <label>Pick up date:</label>
+    <input type='datetime-local' name='pickup_date'>
+
+    <label>Drop off date:</label>
+    <input type='datetime-local' name='dropoff_date'>
+
+    <label>Drop off location:</label>
+    <select name='dropoff_location'>
+      <option value=''>Select a store</option>
+      {% for store in stores %}
+        <option value='{{ store.id }}'>{{ store.name }}</option>
+      {% endfor %}
     </select>
-<br><br>
-<button type="submit">Confirm</button>
-</form>
-
-<form id="guess" name="guess"></form>
-
-
+    
+    <button type='submit'>Confirm</button>
+  </form>
 {% endblock %}
