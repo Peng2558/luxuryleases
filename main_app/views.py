@@ -28,6 +28,12 @@ def cars_index(request):
       'cars':cars
   })
 
+def stores_index(request):
+    stores = Store.objects.all()
+    return render(request,'stores/index.html',{
+     'stores': stores
+
+    })
 
 def rentals_create(request):
     stores = Store.objects.all()
