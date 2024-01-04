@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
- {% for car in cars %}
- {{ car.make }}
- {{ car.model }}
- {% endfor %}
+  {% for car in cars %}
+    <p>{{ car.make }} {{ car.model }}</p>
+  {% endfor %}
 {% endblock %}
