@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Update Rental</h1>
+  <h2>Trip From: {{ rental.car.current_store }} To {{ rental.dropoff_location }}</h2>
+  <form action='#' method='POST'>
+    {% csrf_token %}
+
+    <p>
+      <label>Car:</label>
+      <select name='car'>
+        <option value=''>Select a car</option>
+        {% for car in cars %}
+          {% if car.current_store.name == request.session.selected_store %}
+            <option value='{{ car.id }}'>{{ car.make }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </p>
+
+    <p>
+      <label>Pick up date:</label>
+      <input type='datetime-local' name='pickup_date' value="{{ rental.pickup_date }}">
+    </p>
+
+    <p>
+      <label>Drop off date:</label>
+      <input type='datetime-local' name='dropoff_date' value="{{ rental.dropoff_date }}">
+    </p>
+
+    <p>
+      <label>Drop off location:</label>
+      <select name='dropoff_location'>
+        <option value=''>Select a store</option>
+        {% for store in stores %}
+          <option value='{{ store.id }}'>{{ store.name }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    
+    <button type='submit'>Confirm</button>
+  </form>
+{% endblock %}
