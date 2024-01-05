@@ -2,8 +2,11 @@
 
 {% block content %}
   <div id='car-detail'>
-    <p class='main-title'>{{ car.make }} {{ car.model }}</p>
+    <p class='main-title'>{{ car.year }} {{ car.make }} {{ car.model }}</p>
 
     <img src='{{ photo.url }}'/>
+
+    <p><strong>Current mileage:</strong> {{ car.mileage }} miles</p>
+    <p><strong>Current location:</strong> {{ car.current_store }} store</p>
   </div>
 {% endblock %}
