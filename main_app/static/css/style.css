@@ -218,6 +218,25 @@ nav > #nav-links > .nav-store:hover {
 }
 
 
+/*===== CARS =====*/
+
+#cars > .car-list-item {
+  align-items: center;
+  display: flex;
+  margin-bottom: 2vmin;
+}
+
+#cars img {
+  background-color: var(--base-layer);
+  border-radius: 1vmin;
+  height: 10vmin;
+  margin-right: 2vmin;
+  object-fit: contain;
+  padding: 0.5vmin;
+  width: 15vmin;
+}
+
+
 /*===== USER PROFILE =====*/
 
 #user-profile > #user-rentals {
