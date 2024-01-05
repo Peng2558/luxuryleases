@@ -2,7 +2,7 @@ import uuid
 import boto3
 import os
 
-
+import datetime
 
 from django import forms
 from django.contrib.admin.views.decorators import staff_member_required
@@ -96,10 +96,13 @@ def users_login(request):
 
 @login_required
 def users_detail(request, user_id):
+    d = datetime.date.today()
     user= User.objects.get(id=user_id)
-    rentals = Rental.objects.filter(user=user)
+    upcoming_rentals = Rental.objects.filter(user=user, pickup_date__gte=d)
+    past_rentals = Rental.objects.filter(user=user, dropoff_date__lte = d)
     return render(request, 'users/detail.html',{
-       'rentals': rentals,
+       'upcoming_rentals': upcoming_rentals,
+       'past_rentals': past_rentals,
        'user':user
 
     })
