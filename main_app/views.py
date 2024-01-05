@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from django.shortcuts import render, redirect
-from .models import Car, Store, Rental, CreditCard
+from .models import Car, Store, Rental, CreditCard,Photo
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=50, required=True)
@@ -96,3 +96,7 @@ def rental_detail(request, rental_id):
 class RentalDelete(DeleteView):
     model = Rental
     success_url = '/'
+
+
+def  admin_page(request):
+    return render(request, 'admin.html') 
