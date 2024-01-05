@@ -13,7 +13,10 @@ urlpatterns = [
     path('stores/', views.stores_index, name='stores_index'),
     path('stores/select/<int:store_id>/', views.select_store, name='select_store'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
-    path('administrator/', views.admin_page,name='admin')
+    path('administrator/', views.admin_page,name='admin'),
+    path('administrator/photo/', views.add_photo, name='add_photo'),
+    
+   
     
 
 ]

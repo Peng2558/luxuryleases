@@ -1,3 +1,9 @@
+import uuid
+import boto3
+import os
+
+
+
 from django import forms
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login
@@ -50,8 +56,11 @@ def signup(request):
 @login_required
 def cars_index(request):
   cars= Car.objects.all()
+  photos=Photo.objects.all()
   return render(request,'cars/index.html', {
-      'cars': cars
+      'cars': cars,
+      'photos':photos
+
   })
 
 
@@ -120,4 +129,34 @@ class RentalDelete(LoginRequiredMixin, DeleteView):
 
 @staff_member_required
 def admin_page(request):
-    return render(request, 'admin.html')
+   cars= Car.objects.all()
+
+   return render(request, 'admin.html',{
+       'cars':cars
+   })
+
+
+def add_photo(request):
+
+ # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    car_id= request.POST['car_id']
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            Photo.objects.create(url=url, car_id=car_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('admin')
+
+
+
