@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import login
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -76,13 +76,23 @@ def rentals_create(request):
         rental_fee=400
     )
     new_rental.save()
-    return redirect('rentals_new')
+    return redirect('users_detail', user_id=request.user.id)
 
 def users_detail(request, user_id):
     user= User.objects.get(id=user_id)
+    rentals = Rental.objects.filter(user=user)
     return render(request, 'users/detail.html',{
-       
+       'rentals': rentals,
        'user':user
 
     })
     
+def rental_detail(request, rental_id):
+    rental = Rental.objects.get(id=rental_id)
+    return render(request, 'rentals/detail.html', {
+        'rental': rental
+    })
+
+class RentalDelete(DeleteView):
+    model = Rental
+    success_url = '/'
