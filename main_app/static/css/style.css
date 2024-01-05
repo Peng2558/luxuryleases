@@ -251,6 +251,15 @@ nav > #nav-links > .nav-store:hover {
 }
 
 
+/*===== STORES =====*/
+
+#stores form > button {
+  width: 30vmin;
+  margin: 0 auto 3vmin 0;
+  margin-right: auto;
+}
+
+
 /*===== USER PROFILE =====*/
 
 #user-profile > #user-rentals {
