@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Car Detail Page</h1>
-{{ car.make}} {{car.model}} {{photo}}
+  <div id='car-detail'>
+    <p class='main-title'>{{ car.make }} {{ car.model }}</p>
 
+    <img src='{{ photo.url }}'/>
+  </div>
 {% endblock %}
