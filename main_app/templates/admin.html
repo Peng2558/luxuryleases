@@ -19,16 +19,8 @@
     <br><br>
     <button type="submit" class="btn">Upload Photo</button>
 </form>
-<form method="post">
-    {% csrf_token %}
-    <label for="{{ form.name.id_for_label }}">Store Name:</label>
-    {{ form.name }}
-    
-    <label for="{{ form.address.id_for_label }}">Address:</label>
-    {{ form.address }}
 
-    <button type="submit">Add Store</button>
-</form>
+
 
 {% endfor %}
 {% endblock %}
