@@ -5,14 +5,14 @@
     <p class='main-title'>Our Cars</p>
     
     {% for car in cars %}
-      <div class='car-list-item'>
+      <a class='car-list-item' href='{% url "cars_detail" car.id %}'>
         {% for photo in photos %}
           {% if photo.car.id == car.id %}
             <img src='{{ photo.url }}'/>
           {% endif %}
         {% endfor %}
-        <p>{{ car.make }} {{ car.model }}</p>
-      </div>
+        {{ car.make }} {{ car.model }}
+      </a>
     {% endfor %}
   </div>
 {% endblock %}

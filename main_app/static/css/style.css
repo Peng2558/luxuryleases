@@ -220,20 +220,34 @@ nav > #nav-links > .nav-store:hover {
 
 /*===== CARS =====*/
 
-#cars > .car-list-item {
-  align-items: center;
-  display: flex;
-  margin-bottom: 2vmin;
-}
-
 #cars img {
-  background-color: var(--base-layer);
-  border-radius: 1vmin;
   height: 10vmin;
   margin-right: 2vmin;
   object-fit: contain;
-  padding: 0.5vmin;
   width: 15vmin;
+}
+
+#cars > .car-list-item {
+  align-items: center;
+  border-radius: 1vmin;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+#cars > .car-list-item:hover {
+  background-color: var(--base-layer);
+  color: var(--nav-link-hover-bgcol);
+  font-weight: bold;
+  transform: scale(1.02);
+}
+
+#car-detail > img {
+  display: block;
+  margin: 0 auto;
+  width: 75%;
 }
 
 
