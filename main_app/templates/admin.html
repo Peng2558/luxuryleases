@@ -18,6 +18,10 @@
     <br><br>
     <button type="submit" class="btn">Upload Photo</button>
 </form>
-
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Store</button>
+</form>
 {% endfor %}
 {% endblock %}
