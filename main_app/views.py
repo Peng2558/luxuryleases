@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic.edit import DeleteView, UpdateView
 from .models import Car, Store, Rental, CreditCard,Photo
-
+from .forms import StoreForm
 
 def home(request):
     return render(request, 'home.html')
@@ -193,5 +193,15 @@ def add_photo(request):
             print(e)
     return redirect('admin')
 
+def add_store(request):
+    if request.method == 'POST':
+        form = StoreForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin')  # Redirect after POST
+    else:
+        form = StoreForm()  # An unbound form
+        
+    return render(request, 'admin', {'form': form})
 
 
