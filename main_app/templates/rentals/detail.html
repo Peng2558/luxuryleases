@@ -4,6 +4,8 @@
   <div id='rental'>
     <p class='main-title'>Rental Details</p>
 
+    <img src='{{ photo.url }}'/>
+
     <p>
       <strong>Pickup:</strong> {{ rental.pickup_date|date:'M j Y, P' }}
       <strong>from</strong> {{ rental.car.current_store }}
