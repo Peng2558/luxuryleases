@@ -1,22 +1,22 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-  <h1>User Page</h1>
+  <div id='user-profile'>
+    <p class='main-title'>Your Profile</p>
 
-  <style>
-    #rental:hover{
-      background-color: lightgray;
-    }
-  </style>
+    <div id='user-rentals'>
+      <p class='section-title'>Your Rentals</p>
 
-  <h2>My Rentals</h2>
-  {% for rental in rentals %}
-  <a href="{% url 'rental_detail' rental.id %}" style="text-decoration: none;">
-    <div id="rental" class="card">
-      <div class="card-body">
-        <div class="card-title">Trip from: {{ rental.car.current_store }} To: {{ rental.dropoff_location }}</div>{{ rental. }}
-      </div>
+      {% for rental in rentals %}
+        <a class='user-rental' href='{% url "rental_detail" rental.id %}'>
+          <span class='user-rental-pickup'>
+            {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
+          </span>
+          <span class='user-rental-dropoff'>
+            &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
+          </span>
+        </a>  
+      {% endfor %}
     </div>
-  </a>  
-  {% endfor %}
+  </div>
 {% endblock %}

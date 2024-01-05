@@ -1,26 +1,34 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>Rental Details</h1>
+  <div id='rental'>
+    <p class='main-title'>Rental Details</p>
 
-<div id="rental" class="card">
-  <div class="card-body">
-    <div class="card-title">Trip from: {{ rental.car.current_store }} To: {{ rental.dropoff_location }}</div>{{ rental. }}
-    <div class="card-body">Car: {{ rental.car.make }} {{ rental.car.model }}</div>
-    <div class="card-body">License Plate: {{ rental.car.license_plate }}</div>
-    <div class="card-body">Pick Up Date/Time: {{ rental.pickup_date }}</div>
-    <div class="card-body">Drop Off Date/Time: {{ rental.dropoff_date }}</div>
-    <div class="card-body">Rental Fee: ${{ rental.rental_fee }}</div>
+    <p>
+      <strong>Pickup:</strong> {{ rental.pickup_date|date:'M j Y, P' }}
+      <strong>from</strong> {{ rental.car.current_store }}
+    </p>
+    <p>
+      <strong>Car:</strong> {{ rental.car.make }} {{ rental.car.model }}
+    </p>
+    <p>
+      <strong>License plate:</strong> {{ rental.car.license_plate }}
+    </p>
+    <p>
+      <strong>Dropoff:</strong> {{ rental.dropoff_date|date:'M j Y, P' }}
+      <strong>at</strong> {{ rental.dropoff_location }}
+    </p>
+    <p>
+      <strong>Rental fee:</strong> ${{ rental.rental_fee|floatformat:2 }}
+    </p>
+
+    <form action='' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Edit</button>
+    </form>
+    <form action='{% url "rental_delete" rental.id %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Delete</button>
+    </form>
   </div>
-</div>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  <button type="submit">Edit</button>
-</form>
-<form action="{% url 'rental_delete' rental.id %}" method="POST">
-  {% csrf_token %}
-  <button type="submit">Delete</button>
-</form>
-
 {% endblock %}
