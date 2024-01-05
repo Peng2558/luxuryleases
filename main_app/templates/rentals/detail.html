@@ -22,11 +22,11 @@
       <strong>Rental fee:</strong> ${{ rental.rental_fee|floatformat:2 }}
     </p>
 
-    <form action='{% url "rental_update" rental.id %}' method='POST'>
+    <form action='{% url "rentals_edit" rental.id %}' method='POST'>
       {% csrf_token %}
       <button type='submit'>Edit</button>
     </form>
-    <form action='{% url "rental_delete" rental.id %}' method='POST'>
+    <form action='{% url "rentals_delete" rental.id %}' method='POST'>
       {% csrf_token %}
       <button type='submit'>Delete</button>
     </form>

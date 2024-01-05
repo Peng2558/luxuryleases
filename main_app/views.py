@@ -126,21 +126,31 @@ def rentals_create(request):
 
 
 @login_required
-def rental_detail(request, rental_id):
+def rentals_detail(request, rental_id):
     rental = Rental.objects.get(id=rental_id)
     return render(request, 'rentals/detail.html', {
         'rental': rental
     })
 
-def rental_update(request, rental_id):
+def rentals_edit(request, rental_id):
     rental =  Rental.objects.get(id=rental_id)
     stores = Store.objects.all()
     cars = Car.objects.all()
+    print(rental.pickup_date)
     return render(request, 'rentals/update.html',{
         'rental':rental,
         'stores':stores,
         'cars':cars
     })
+
+def rentals_update(request, rental_id):
+    rental = Rental.objects.get(id=rental_id)
+    rental.car = Car.objects.get(id=request.POST['car'])
+    rental.pickup_date = request.POST['pickup_date']
+    rental.dropoff_date = request.POST['dropoff_date']
+    rental.dropoff_location = Store.objects.get(id=request.POST['dropoff_location'])
+    rental.save()
+    return redirect('rentals_detail', rental_id=rental_id)
 
 class RentalDelete(LoginRequiredMixin, DeleteView):
     model = Rental

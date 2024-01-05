@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Update Rental</h1>
   <h2>Trip From: {{ rental.car.current_store }} To {{ rental.dropoff_location }}</h2>
-  <form action='#' method='POST'>
+  <form action='{% url "rentals_update" rental.id %}' method='POST'>
     {% csrf_token %}
 
     <p>
@@ -12,7 +12,11 @@
         <option value=''>Select a car</option>
         {% for car in cars %}
           {% if car.current_store.name == request.session.selected_store %}
-            <option value='{{ car.id }}'>{{ car.make }}</option>
+            {% if car.id == rental.car.id %}
+              <option selected value='{{ car.id }}'>{{ car.make }} {{ car.model }}</option>
+            {% else %}
+              <option value='{{ car.id }}'>{{ car.make }} {{ car.model }}</option>
+            {% endif %}
           {% endif %}
         {% endfor %}
       </select>
@@ -20,12 +24,12 @@
 
     <p>
       <label>Pick up date:</label>
-      <input type='datetime-local' name='pickup_date' value="{{ rental.pickup_date }}">
+      <input type='datetime-local' name='pickup_date' value="{{ rental.pickup_date|date:'c' }}">
     </p>
 
     <p>
       <label>Drop off date:</label>
-      <input type='datetime-local' name='dropoff_date' value="{{ rental.dropoff_date }}">
+      <input type='datetime-local' name='dropoff_date' value="{{ rental.dropoff_date|date:'c' }}">
     </p>
 
     <p>
@@ -33,7 +37,11 @@
       <select name='dropoff_location'>
         <option value=''>Select a store</option>
         {% for store in stores %}
+          {% if store.id == rental.dropoff_location.id %}
+          <option selected value='{{ store.id }}'>{{ store.name }}</option>
+          {% else %}
           <option value='{{ store.id }}'>{{ store.name }}</option>
+          {% endif %}
         {% endfor %}
       </select>
     </p>
