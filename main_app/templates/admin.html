@@ -2,11 +2,7 @@
 
 {% block content %}
 <h1>Admin Page</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Store</button>
-</form>
+
 {% for photo in car.photo_set.all %}
 <img class="responsive-img card-panel" src="{{photo.url}}">
 {% empty %}
@@ -22,6 +18,16 @@
     </select>
     <br><br>
     <button type="submit" class="btn">Upload Photo</button>
+</form>
+<form method="post">
+    {% csrf_token %}
+    <label for="{{ form.name.id_for_label }}">Store Name:</label>
+    {{ form.name }}
+    
+    <label for="{{ form.address.id_for_label }}">Address:</label>
+    {{ form.address }}
+
+    <button type="submit">Add Store</button>
 </form>
 
 {% endfor %}

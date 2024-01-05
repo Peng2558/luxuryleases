@@ -205,6 +205,6 @@ def add_store(request):
     else:
         form = StoreForm()  # An unbound form
         
-    return render(request, 'admin', {'form': form})
+    return render(request, 'admin.html', {'form': form})
 
 
