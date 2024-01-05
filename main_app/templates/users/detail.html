@@ -8,7 +8,7 @@
       <p class='section-title'>Your Rentals</p>
 
       {% for rental in rentals %}
-        <a class='user-rental' href='{% url "rental_detail" rental.id %}'>
+        <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
           <span class='user-rental-pickup'>
             {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
           </span>
