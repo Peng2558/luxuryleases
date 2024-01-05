@@ -25,6 +25,9 @@ class Car(models.Model):
   def __str__(self):
     return f'{self.make} {self.model}, Plate: {self.license_plate}'
   
+  class Meta:
+    ordering = ['make', 'model']
+  
 class CreditCard(models.Model):
   card_number = models.BigIntegerField()
   card_type = models.CharField(max_length=20)

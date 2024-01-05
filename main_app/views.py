@@ -89,6 +89,11 @@ def select_store(request, store_id):
     return redirect('stores_index')
 
 
+def users_login(request):
+    user_id = request.user.id
+    return redirect('users_detail', user_id=user_id)
+
+
 @login_required
 def users_detail(request, user_id):
     user= User.objects.get(id=user_id)
