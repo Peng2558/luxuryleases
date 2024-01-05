@@ -287,6 +287,10 @@ nav > #nav-links > .nav-store:hover {
 
 /*===== RENTAL DETAIL =====*/
 
+#rental img {
+  width: 40%;
+}
+
 #rental form {
   display: inline-block;
   margin-right: 1.25vmin;

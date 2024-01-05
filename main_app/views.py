@@ -133,8 +133,11 @@ def rentals_create(request):
 @login_required
 def rentals_detail(request, rental_id):
     rental = Rental.objects.get(id=rental_id)
+    request.session['selected_store'] = Store.objects.get(id=rental.car.current_store.id).name
+    photo = Photo.objects.get(car_id=rental.car)
     return render(request, 'rentals/detail.html', {
-        'rental': rental
+        'rental': rental,
+        'photo': photo
     })
 
 def rentals_edit(request, rental_id):
