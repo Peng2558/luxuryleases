@@ -12,7 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 from .models import Car, Store, Rental, CreditCard,Photo
 
 
@@ -132,6 +132,15 @@ def rental_detail(request, rental_id):
         'rental': rental
     })
 
+def rental_update(request, rental_id):
+    rental =  Rental.objects.get(id=rental_id)
+    stores = Store.objects.all()
+    cars = Car.objects.all()
+    return render(request, 'rentals/update.html',{
+        'rental':rental,
+        'stores':stores,
+        'cars':cars
+    })
 
 class RentalDelete(LoginRequiredMixin, DeleteView):
     model = Rental
