@@ -1,5 +1,11 @@
 :root {
-  --base-col: #6a5acd;
+  /*===== COLORS =====*/
+  --base-col: #4a5acd88;
+  --nav-link-col: #00006b;
+  --nav-link-hover-bgcol: #ccf;
+
+  /*===== RULES =====*/
+  --transition: 0.15s ease-in-out;
 }
 
 
@@ -7,9 +13,85 @@
 
 * {
   box-sizing: border-box;
+  cursor: default;
   margin: 0;
 }
 
 body {
   background-color: var(--base-col);
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+main {
+  height: calc(100vh - 6vmin);
+  padding: 0 10vmin;
+}
+
+
+/*===== NAV =====*/
+
+nav {
+  align-items: center;
+  background-color: var(--base-col);
+  box-shadow: 0 0.35vmin 0.75vmin #001;
+  display: flex;
+  height: 6vmin;
+  justify-content: space-between;
+  padding: 0 4vmin;
+}
+
+nav > #logo {
+  color: var(--nav-link-col);
+  cursor: pointer;
+  font-family: 'Oleo Script';
+  font-size: 4.5vmin;
+  font-weight: bold;
+  letter-spacing: 0.2vmin;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+nav > #logo:hover {
+  color: var(--nav-link-hover-bgcol);
+}
+
+nav #nav-links > .nav-link {
+  background-color: var(--base-col);
+  border-radius: 1vmin;
+  color: var(--nav-link-col);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 2vmin;
+  margin-left: 1.5vmin;
+  padding: 0.5vmin 1.5vmin;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+nav #nav-links > .nav-link:hover {
+  background-color: var(--nav-link-hover-bgcol);
+}
+
+
+/*===== HOME =====*/
+
+#home {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#home > #home-logo {
+  color: var(--base-col);
+  font-family: 'Oleo Script';
+  font-size: 10vmin;
+  letter-spacing: 0.4vmin;
+  margin-bottom: 4vmin;
+}
+
+#home > #home-content {
+  font-size: 2vmin;
+  line-height: 1.6;
 }

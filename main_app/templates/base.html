@@ -7,35 +7,43 @@
   <meta charset='UTF-8'/>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   <title>Luxury Leases</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet">
+
   <link rel='stylesheet' href='{% static "css/style.css" %}'/>
 </head>
 
 <body>
   <nav>
-    <a href='{% url "home" %}'>Luxury Leases</a>
-    <a href='{% url "about" %}'>About</a>
+    <a id='logo' href='{% url "home" %}'>Luxury Leases</a>
 
-    {% if user.is_authenticated %}
-      <a href='{% url "users_detail" user.id %}'>Your Profile</a>
-      <a href='{% url "cars_index" %}'>Our Cars</a>
+    <div id='nav-links'>
+      <a class='nav-link' href='{% url "about" %}'>About</a>
 
-      {% if request.session.selected_store %}
-        <a href='{% url "stores_index" %}'>{{ request.session.selected_store }}</a>
-        <a href='{% url "rentals_new" %}'>Rent a Car</a>
+      {% if user.is_authenticated %}
+        <a class='nav-link' href='{% url "users_detail" user.id %}'>Your Profile</a>
+        <a class='nav-link' href='{% url "cars_index" %}'>Our Cars</a>
+
+        {% if request.session.selected_store %}
+          <a class='nav-link' href='{% url "stores_index" %}'>{{ request.session.selected_store }}</a>
+          <a class='nav-link' href='{% url "rentals_new" %}'>Rent a Car</a>
+        {% else %}
+          <a class='nav-link' href='{% url "stores_index" %}'>Choose a Store</a>
+        {% endif %}
+
+        <form action='{% url "logout" %}' method='POST'>
+          {% csrf_token %}
+          <button type='submit'>Log Out</button>
+        </form>
+
       {% else %}
-        <a href='{% url "stores_index" %}'>Choose a Store</a>
+        <a class='nav-link' href='{% url "signup" %}'>Sign Up</a>
+        <a class='nav-link' href='{% url "login" %}'>Log In</a>
       {% endif %}
-
-      <form action='{% url "logout" %}' method='POST'>
-        {% csrf_token %}
-        <button type='submit'>Log Out</button>
-      </form>
-
-    {% else %}
-      <a href='{% url "signup" %}'>Sign Up</a>
-      <a href='{% url "login" %}'>Log In</a>
-    {% endif %}
-    </ul>
+    </div>
   </nav>
 
   {% block content %}{% endblock %}
