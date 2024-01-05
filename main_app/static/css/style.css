@@ -1,0 +1,15 @@
+:root {
+  --base-col: #6a5acd;
+}
+
+
+/*===== GLOBAL =====*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: var(--base-col);
+}
