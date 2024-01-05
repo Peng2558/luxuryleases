@@ -1,6 +1,8 @@
 :root {
   /*===== COLORS =====*/
-  --base-col: #4a5acd88;
+  --base-layer: #4a5acd88;
+  --form-input-bgcol: #ccf;
+  --main-text-col: #001;
   --nav-link-col: #00006b;
   --nav-link-hover-bgcol: #ccf;
 
@@ -18,14 +20,98 @@
 }
 
 body {
-  background-color: var(--base-col);
+  background-color: var(--base-layer);
   font-family: sans-serif;
   height: 100vh;
 }
 
 main {
+  color: var(--main-text-col);
+  font-size: 2vmin;
   height: calc(100vh - 6vmin);
-  padding: 0 10vmin;
+  line-height: 1.6;
+  padding: 3vmin 24vmin 0;
+}
+
+.main-title, main > h1 {
+  border-bottom: 1px solid var(--base-layer);
+  display: block;
+  font-size: 4vmin;
+  font-weight: bold;
+  margin-bottom: 3vmin;
+}
+
+.section-title {
+  border-bottom: 1px solid var(--base-layer);
+  font-size: 3vmin;
+  margin-bottom: 2vmin;
+}
+
+
+/*===== FORMS =====*/
+
+form input, form select {
+  background-color: var(--form-input-bgcol);
+  border: none;
+  border-radius: 0.25vmin;
+  color: inherit;
+  font-family: inherit;
+  font-size: 2vmin;
+  padding: 0.25vmin 0.5vmin;
+}
+
+form input:focus {
+  outline: none;
+}
+
+form > p {
+  display: grid;
+  gap: 2vmin;
+  grid-template-columns: 30% 50%;
+  margin-top: 2vmin;
+}
+
+form > p:empty {
+  display: none;
+}
+
+form > p > label {
+  text-align: right;
+}
+
+form > p > span {
+  font-size: 1.5vmin;
+  grid-column: span 2;
+  margin: -1vmin 0 0;
+  padding-left: 40%;
+}
+
+form > ul {
+  font-size: 1.5vmin;
+  margin: -1vmin 0;
+  padding-left: 35%;
+}
+
+form > ul > li {
+  margin-top: -0.5vmin;
+}
+
+form > button {
+  background-color: var(--base-layer);
+  border: none;
+  border-radius: 0.75vmin;
+  color: var(--nav-link-col);
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-size: 2vmin;
+  margin: 2.5vmin auto;
+  padding: 0.5vmin 1.5vmin;
+  transition: var(--transition);
+}
+
+form > button:hover {
+  background-color: var(--nav-link-hover-bgcol);
 }
 
 
@@ -33,7 +119,7 @@ main {
 
 nav {
   align-items: center;
-  background-color: var(--base-col);
+  background-color: var(--base-layer);
   box-shadow: 0 0.35vmin 0.75vmin #001;
   display: flex;
   height: 6vmin;
@@ -56,21 +142,60 @@ nav > #logo:hover {
   color: var(--nav-link-hover-bgcol);
 }
 
-nav #nav-links > .nav-link {
-  background-color: var(--base-col);
-  border-radius: 1vmin;
+nav > #nav-links > #nav-welcome {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2vmin;
+}
+
+#nav-welcome > #nav-welcome-contents {
+  color: var(--nav-link-col);
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-welcome > #nav-welcome-contents > #nav-welcome-label {
+  font-size: 1.25vmin;
+}
+
+#nav-welcome > #nav-welcome-contents > #nav-welcome-username {
+  font-size: 2vmin;
+  font-weight: bold;
+  margin-top: -0.35vmin;
+}
+
+nav #nav-links > .nav-link,
+nav #nav-links > form > button {
+  background-color: var(--base-layer);
+  border-radius: 0.75vmin;
   color: var(--nav-link-col);
   cursor: pointer;
   display: inline-block;
-  font-size: 2vmin;
-  margin-left: 1.5vmin;
-  padding: 0.5vmin 1.5vmin;
+  font-size: 1.75vmin;
+  margin: unset;
+  margin-left: 1.25vmin;
+  padding: 0.5vmin 1.25vmin;
   text-decoration: none;
   transition: var(--transition);
 }
 
-nav #nav-links > .nav-link:hover {
+nav #nav-links > .nav-link:hover,
+nav #nav-links > form > button:hover {
   background-color: var(--nav-link-hover-bgcol);
+}
+
+nav > #nav-links > form {
+  display: inline-block;
+  height: 0;
+}
+
+nav > #nav-links > .nav-store {
+  background-color: var(--nav-link-col);
+  color: var(--nav-link-hover-bgcol);
+}
+
+nav > #nav-links > .nav-store:hover {
+  color: var(--nav-link-col);
 }
 
 
@@ -80,18 +205,76 @@ nav #nav-links > .nav-link:hover {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: center;
 }
 
 #home > #home-logo {
-  color: var(--base-col);
+  color: var(--base-layer);
   font-family: 'Oleo Script';
   font-size: 10vmin;
   letter-spacing: 0.4vmin;
   margin-bottom: 4vmin;
 }
 
-#home > #home-content {
-  font-size: 2vmin;
-  line-height: 1.6;
+
+/*===== USER PROFILE =====*/
+
+#user-profile > #user-rentals {
+  background-color: var(--base-layer);
+  border-radius: 1vmin;
+  padding: 2vmin;
+  width: 100%;
+}
+
+#user-profile > #user-rentals > .user-rental {
+  color: inherit;
+  display: block;
+  margin-top: 0.5vmin;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+#user-profile > #user-rentals > .user-rental:hover {
+  color: var(--nav-link-hover-bgcol);
+}
+
+.user-rental > span {
+  cursor: pointer;
+}
+
+.user-rental > .user-rental-pickup {
+  font-weight: bold;
+}
+
+.user-rental > .user-rental-dropoff {
+  font-size: 1.75vmin;
+}
+
+
+/*===== RENTAL DETAIL =====*/
+
+#rental form {
+  display: inline-block;
+  margin-right: 1.25vmin;
+}
+
+
+/*===== RESPONSIVE =====*/
+
+@media only screen and (max-width: 1150px) {
+  main {
+    height: calc(100vh - 12vmin);
+    padding: 3vmin 8vmin 0;
+  }
+
+  nav {
+    flex-direction: column;
+    height: 12vmin;
+    justify-content: unset;
+  }
+
+  nav > #nav-links {
+    margin-top: 0.75vmin;
+  }
 }
