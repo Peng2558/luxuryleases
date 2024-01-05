@@ -64,6 +64,17 @@ def cars_index(request):
   })
 
 
+def cars_detail(request, car_id):
+    car= Car.objects.get(id=car_id)
+    photo= Photo.objects.get(car_id=car_id)
+    return render(request, 'cars/detail.html',{
+        'car':car,
+        'photo':photo
+    })
+
+
+
+
 @login_required
 def stores_index(request):
     stores = Store.objects.all()
