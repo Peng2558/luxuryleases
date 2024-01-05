@@ -2,4 +2,22 @@
 
 {% block content %}
 <h1>Admin Page</h1>
+{% for photo in car.photo_set.all %}
+<img class="responsive-img card-panel" src="{{photo.url}}">
+{% empty %}
+
+<div class="card-panel teal-text center-align">No Photos Uploaded</div>
+<form action="{% url 'add_photo'  %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <select name="car_id" id="">
+     {% for car in cars %}
+     <option value="{{car.id}}">{{car.make}} {{car.model}}</option>
+    {%endfor%}
+    </select>
+    <br><br>
+    <button type="submit" class="btn">Upload Photo</button>
+</form>
+
+{% endfor %}
 {% endblock %}
