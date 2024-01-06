@@ -20,6 +20,19 @@
     <button type="submit" class="btn">Upload Photo</button>
 </form>
 
+<form  action= '{% url "add_store"  %}' method="POST">
+    {% csrf_token %}
+      <p>
+        <label>Store Name:</label>
+        <input type='text' name='store_name' value="{{ store.name }}">
+      </p>
+      <p>
+        <label>Store Address:</label>
+        <input type='text' name='store_address' value="{{ store.address }}">
+      </p>
+      
+    <button type="submit">Add Store</button>
+</form>
 
 
 {% endfor %}
