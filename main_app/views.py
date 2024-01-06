@@ -65,11 +65,15 @@ def cars_index(request):
 
 
 def cars_detail(request, car_id):
+    d = datetime.date.today()
     car= Car.objects.get(id=car_id)
     photo= Photo.objects.get(car_id=car_id)
+    rentals= Rental.objects.all().order_by('-pickup_date')
     return render(request, 'cars/detail.html',{
         'car':car,
-        'photo':photo
+        'photo':photo,
+        'rentals':rentals,
+        'd':d
     })
 
 
