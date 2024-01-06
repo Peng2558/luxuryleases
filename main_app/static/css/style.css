@@ -264,6 +264,7 @@ nav > #nav-links > .nav-store:hover {
 #user-profile > #user-rentals {
   background-color: var(--base-layer);
   border-radius: 1vmin;
+  margin-bottom: 3vmin;
   padding: 2vmin;
   width: 100%;
 }

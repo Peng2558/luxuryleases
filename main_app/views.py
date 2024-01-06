@@ -112,7 +112,6 @@ def users_detail(request, user_id):
 def rentals_new(request):
     stores = Store.objects.all()
     cars = Car.objects.all()
-    print(f'{request.GET}')
     return render(request, 'main_app/rental_form.html/', {
         'stores': stores,
         'cars': cars,
