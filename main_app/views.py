@@ -12,9 +12,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, CreateView,UpdateView
 from .models import Car, Store, Rental, CreditCard,Photo
-
+from .forms import StoreForm
 
 def home(request):
     return render(request, 'home.html')
@@ -203,5 +203,15 @@ def add_photo(request):
             print(e)
     return redirect('admin')
 
+def add_store(request):
+  
+    if request.method == 'POST':
+  
+        store_name = request.POST.get('store_name')
+        store_address = request.POST.get('store_address')
+        Store.objects.create(name=store_name, address=store_address)
+        return redirect('admin')  
+
+    return render(request, 'admin')
 
 
