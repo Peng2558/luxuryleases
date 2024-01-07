@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Update Rental</h1>
-  <h2>Trip From: {{ rental.car.current_store }} To {{ rental.dropoff_location }}</h2>
+
   <form action='{% url "rentals_update" rental.id %}' method='POST'>
     {% csrf_token %}
 
