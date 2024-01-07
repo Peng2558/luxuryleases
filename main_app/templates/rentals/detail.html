@@ -6,6 +6,14 @@
 
     <img src='{{ photo.url }}'/>
 
+    {% if user.is_superuser %}
+      <p style='font-size: 2.5vmin; margin-bottom: 1vmin;'>
+        <strong>Customer:</strong>
+        {{ rental.user.first_name }} {{ rental.user.last_name }}
+        (<a href='mailto:{{ rental.user.email }}'>{{ rental.user.email }}</a>)
+      </p>
+    {% endif %}
+
     <p>
       <strong>Pickup:</strong> {{ rental.pickup_date|date:'M j Y, P' }}
       <strong>from</strong> {{ rental.car.current_store }}
