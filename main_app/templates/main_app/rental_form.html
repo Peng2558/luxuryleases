@@ -12,7 +12,7 @@
         <option value=''>Select a car</option>
         {% for car in cars %}
           {% if car.current_store.name == request.session.selected_store %}
-            <option value='{{ car.id }}'>{{ car.make }}</option>
+            <option value='{{ car.id }}'>{{ car.make }} {{ car.model }}</option>
           {% endif %}
         {% endfor %}
       </select>
