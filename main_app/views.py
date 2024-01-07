@@ -65,15 +65,13 @@ def cars_index(request):
 
 
 def cars_detail(request, car_id):
-    d = datetime.date.today()
     car= Car.objects.get(id=car_id)
     photo= Photo.objects.get(car_id=car_id)
-    rentals= Rental.objects.all().order_by('-pickup_date')
+    rentals= Rental.objects.filter(car_id=car_id).order_by('-pickup_date')
     return render(request, 'cars/detail.html',{
         'car':car,
         'photo':photo,
         'rentals':rentals,
-        'd':d
     })
 
 
@@ -102,8 +100,8 @@ def users_login(request):
 def users_detail(request, user_id):
     d = datetime.date.today()
     user= User.objects.get(id=user_id)
-    upcoming_rentals = Rental.objects.filter(user=user, pickup_date__gte=d)
-    past_rentals = Rental.objects.filter(user=user, dropoff_date__lte = d)
+    upcoming_rentals = Rental.objects.filter(user=user, pickup_date__gte=d).order_by('pickup_date')
+    past_rentals = Rental.objects.filter(user=user, dropoff_date__lte = d).order_by('-pickup_date')
     return render(request, 'users/detail.html',{
        'upcoming_rentals': upcoming_rentals,
        'past_rentals': past_rentals,
@@ -139,9 +137,12 @@ def rentals_create(request):
 @login_required
 def rentals_detail(request, rental_id):
     rental = Rental.objects.get(id=rental_id)
+    d = datetime.datetime.now()
+    allow_edit_delete = rental.dropoff_date > d
     request.session['selected_store'] = Store.objects.get(id=rental.car.current_store.id).name
     photo = Photo.objects.get(car_id=rental.car)
     return render(request, 'rentals/detail.html', {
+        'allow_edit_delete': allow_edit_delete,
         'rental': rental,
         'photo': photo
     })

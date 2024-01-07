@@ -8,22 +8,21 @@
 
     <p><strong>Current mileage:</strong> {{ car.mileage }} miles</p>
     <p><strong>Current location:</strong> {{ car.current_store }} store</p>
-  </div>
 
-  {% if user.is_superuser %}
-    <div id='user-rentals'>
-      <p class='section-title'>Rental History</p>
-      {% for rental in rentals %}
-        <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
-          <span class='user-rental-pickup'>
-            {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
-          </span>
-          <span class='user-rental-dropoff'>
-            &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
-          </span>
+    {% if user.is_superuser %}
+      <div class='user-rentals'>
+        <p class='section-title'>Rental History</p>
+        {% for rental in rentals %}
+          <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
+            <span class='user-rental-pickup'>
+              {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
+            </span>
+            <span class='user-rental-dropoff'>
+              &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
+            </span>
           </a>
-        <br>  
-      {% endfor %}  
-    </div>
-  {% endif %}
+        {% endfor %}  
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
