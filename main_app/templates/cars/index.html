@@ -6,11 +6,7 @@
     
     {% for car in cars %}
       <a class='car-list-item' href='{% url "cars_detail" car.id %}'>
-        {% for photo in photos %}
-          {% if photo.car.id == car.id %}
-            <img src='{{ photo.url }}'/>
-          {% endif %}
-        {% endfor %}
+        <img src='{{ car.photo_url }}'/>
         {{ car.make }} {{ car.model }}
       </a>
     {% endfor %}
