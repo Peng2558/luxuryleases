@@ -85,21 +85,17 @@ def users_detail(request, user_id):
 @login_required
 def cars_index(request):
     cars = Car.objects.all()
-    photos = Photo.objects.all()
     return render(request,'cars/index.html', {
-        'cars': cars,
-        'photos': photos
+        'cars': cars
     })
 
 
 @login_required
 def cars_detail(request, car_id):
     car = Car.objects.get(id=car_id)
-    photo = Photo.objects.get(car_id=car_id)
     rentals = Rental.objects.filter(car_id=car_id).order_by('-pickup_date')
     return render(request, 'cars/detail.html', {
         'car': car,
-        'photo': photo,
         'rentals': rentals
     })
 
@@ -154,11 +150,9 @@ def rentals_detail(request, rental_id):
     request.session['selected_store'] = Store.objects.get(
         id=rental.car.current_store.id
     ).name
-    photo = Photo.objects.get(car_id=rental.car)
     return render(request, 'rentals/detail.html', {
         'allow_edit_delete': allow_edit_delete,
-        'rental': rental,
-        'photo': photo
+        'rental': rental
     })
 
 
