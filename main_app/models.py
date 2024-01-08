@@ -21,6 +21,7 @@ class Car(models.Model):
   license_plate = models.CharField(max_length=10)
   mileage = models.IntegerField()
   current_store = models.ForeignKey(Store, on_delete=models.CASCADE)
+  photo_url = models.CharField(max_length=100)
 
   def __str__(self):
     return f'{self.make} {self.model}, Plate: {self.license_plate}'
@@ -49,10 +50,3 @@ class Rental(models.Model):
 
   def __str__(self):
     return f'{self.user.last_name} - {self.car} - Start: {self.pickup_date}'
-
-class Photo(models.Model):
-    url = models.CharField(max_length=200)
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for car_id: {self.car_id} @{self.url}"

@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from .forms import StoreForm
-from .models import Car, Store, Rental, CreditCard, Photo
+from .models import Car, Store, Rental, CreditCard
 
 
 #===== PUBLIC =====
@@ -201,11 +201,9 @@ def admin_page(request):
        'cars': cars
    })
 
-
 @staff_member_required
-def add_photo(request):
+def add_car(request):
     photo_file = request.FILES.get('photo-file', None)
-    car_id = request.POST['car_id']
     if photo_file:
         s3 = boto3.client('s3')
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
@@ -213,10 +211,19 @@ def add_photo(request):
             bucket = os.environ['S3_BUCKET']
             s3.upload_fileobj(photo_file, bucket, key)
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            Photo.objects.create(url=url, car_id=car_id)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
+    car = Car.objects.create(
+        make = request.POST['make'],
+        model = request.POST['model'],
+        year = request.POST['year'],
+        license_plate = request.POST['license_plate'],
+        mileage = request.POST['mileage'],
+        current_store = Store.objects.get(store_id=request.POST['current_store']),
+        photo_url = url
+    )       
+    car.save()
     return redirect('admin')
 
 
