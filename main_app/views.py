@@ -243,3 +243,30 @@ def add_store(request):
         Store.objects.create(name=store_name, address=store_address)
         return redirect('admin')  
     return render(request, 'admin')
+
+def edit_car(request):
+     car = Car.objects.all()
+     store = Store.objects.all()
+     return render(request, 'cars/update.html', {
+       
+         'car':car,
+         'store':store
+    })
+
+def update_car(request,car_id):
+    car = Car.objects.get(id=car_id)
+    car.make = request.POST['car.make']
+    car.model = request.POST['car.model']
+    car.year = request.POST['car.year']
+    car.make = request.POST['car.make']
+    car.license_plate=request.POST['car.license_plate']
+    car.mileage = request.POST['car.mileage']
+    car.current_store= request.POST['car.current_store']
+    car.save()
+    return redirect('update_car', car_id=car_id)
+
+
+
+def delete_car(request):
+   cars = Car.objects.all()
+   return render(request, 'admin')

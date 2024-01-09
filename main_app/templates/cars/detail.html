@@ -21,8 +21,19 @@
               &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
             </span>
           </a>
+         
         {% endfor %}  
       </div>
     {% endif %}
+    {% if user.is_superuser %}
+    <form action='{% url "edit_car"  %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Edit</button>
+    </form>
+    <form action='{% url "delete_car" %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Delete</button>
+    </form>
+  {% endif %}
   </div>
 {% endblock %}

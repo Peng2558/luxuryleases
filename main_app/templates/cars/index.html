@@ -16,6 +16,17 @@
         {{ car.make }} {{ car.model }}
         </a>
       {% endif %}
+      <!-- {% if user.is_superuser %}
+        <form action='{% url "edit_car"  %}' method='POST'>
+          {% csrf_token %}
+          <button type='submit'>Edit</button>
+        </form>
+        <form action='{% url "delete_car" %}' method='POST'>
+          {% csrf_token %}
+          <button type='submit'>Delete</button>
+        </form>
+      {% endif %} -->
     {% endfor %}
+    
   </div>
 {% endblock %}
