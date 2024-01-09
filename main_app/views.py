@@ -156,7 +156,9 @@ def rentals_create(request):
 
 @login_required
 def rentals_car(request, car_id):
-    request.session['selected_car'] = Car.objects.get(id=car_id).id
+    car = Car.objects.get(id=car_id)
+    request.session['selected_store'] = Store.objects.get(id=car.current_store_id).name
+    request.session['selected_car'] = car.id
     return redirect('rentals_new')
 
 @login_required
