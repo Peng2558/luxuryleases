@@ -2,10 +2,9 @@
 
 {% block content %}
   <h1>Update Car</h1>
-  <form action='{% url "update_car"   %}' method='POST' enctype="multipart/form-data">
+  <form action='{% url "update_car" car.id  %}' method='POST' enctype="multipart/form-data">
     {% csrf_token %}
-    <p>
-     
+   
        <p>
         <label>Car Make:</label>
         <input type='text' name='make' value="{{car.make}}" >
@@ -13,7 +12,7 @@
       <p>
 
         <label>Car  Model:</label>
-        <input type='text' name='model'  value="{{car.model}}">
+        <input type='text' name='model'  value="{{car.model}}"  >
       </p>
       <p>
         <label>Year:</label>
@@ -21,25 +20,31 @@
       </p>
       <p>
         <label> License Plate:</label>
-        <input type='text' name='license_plate'>
+        <input type='text' name='license_plate' value ="{{car.license_plate}}">
       </p>
       <p>
         <label> Mileage:</label>
-        <input type='text' name='mileage' >
+        <input type='text' name='mileage' value="{{car.mileage}}" >
       </p>
       <p>
+       
         <label>Current Store:</label>
         <select name='current_store'>
-          <option value=''>Select a store</option>
+          <option  value=''>Select a store</option>
           {% for store in stores %}
-            <option value ='{{store.id}}' >{{ store.name }}</option>
+          {% if store.id == car.current_store.id %}
+          <option selected value='{{ store.id }}'>{{ store.name }}</option>
+          {% else %}
+          <option value='{{ store.id }}'>{{ store.name }}</option>
+          {% endif %}
           {% endfor %}
+         
         </select>
       </p>
-      <p>
+      <!-- <p>
         <label> Photo:</label>
         <input type='file' name='photo-file' >
-      </p>
+      </p> -->
    
     <button type='submit'>Confirm</button>
   </form>

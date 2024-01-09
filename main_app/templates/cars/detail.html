@@ -8,13 +8,22 @@
 
     <p><strong>Current mileage:</strong> {{ car.mileage }} miles</p>
     <p><strong>Current location:</strong> {{ car.current_store }} store</p>
-
+   
     <form action="{% url 'quick_car' car.id %}" method="POST">
       {% csrf_token %}
       <button type="submit">Rent This Vehicle</button>
     </form>
 
     {% if user.is_superuser %}
+    <form action='{% url "edit_car" car.id  %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Edit</button>
+    </form>
+    <form action='{% url "delete_car" car.id %}' method='POST'>
+      {% csrf_token %}
+      <button type='submit'>Delete</button>
+    </form>
+  
       <div class='user-rentals'>
         <p class='section-title'>Rental History</p>
         {% for rental in rentals %}
@@ -30,15 +39,6 @@
         {% endfor %}  
       </div>
     {% endif %}
-    {% if user.is_superuser %}
-    <form action='{% url "edit_car"  %}' method='POST'>
-      {% csrf_token %}
-      <button type='submit'>Edit</button>
-    </form>
-    <form action='{% url "delete_car" %}' method='POST'>
-      {% csrf_token %}
-      <button type='submit'>Delete</button>
-    </form>
-  {% endif %}
+   
   </div>
 {% endblock %}

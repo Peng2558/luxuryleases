@@ -37,7 +37,7 @@
       <select name='dropoff_location'>
         <option value=''>Select a store</option>
         {% for store in stores %}
-          {% if store.id == rental.dropoff_location.id %}
+          {% if store.id == car.current_store.id %}
           <option selected value='{{ store.id }}'>{{ store.name }}</option>
           {% else %}
           <option value='{{ store.id }}'>{{ store.name }}</option>
