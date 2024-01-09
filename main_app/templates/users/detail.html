@@ -5,7 +5,7 @@
     <p class='main-title'>Your Profile</p>
 
     <div class='user-rentals'>
-      <p class='section-title'>Your Upcoming Rentals</p>
+      <p class='section-title'>Your Current/Upcoming Rentals</p>
 
       {% for rental in upcoming_rentals %}
         <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
