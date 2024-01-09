@@ -1,10 +1,11 @@
 :root {
   /*===== COLORS =====*/
-  --base-layer: #4a5acd88;
-  --form-input-bgcol: #ccf;
-  --main-text-col: #001;
-  --nav-link-col: #00006b;
-  --nav-link-hover-bgcol: #ccf;
+  /* --base-layer: #4a5acd88; */
+  --base-layer: #006daf55;
+  --form-input-bgcol: #eff;
+  --main-text-col: #011;
+  --nav-link-col: #002e4a;
+  --nav-link-hover-bgcol: #eff;
 
   /*===== RULES =====*/
   --transition: 0.15s ease-in-out;
@@ -144,8 +145,8 @@ nav > #logo:hover {
 
 nav > #nav-links > #nav-welcome {
   display: inline-block;
-  vertical-align: middle;
-  margin-right: 2vmin;
+  vertical-align: top;
+  margin-right: 1.5vmin;
 }
 
 #nav-welcome > #nav-welcome-contents {
@@ -155,11 +156,11 @@ nav > #nav-links > #nav-welcome {
 }
 
 #nav-welcome > #nav-welcome-contents > #nav-welcome-label {
-  font-size: 1.25vmin;
+  font-size: 1.1vmin;
 }
 
 #nav-welcome > #nav-welcome-contents > #nav-welcome-username {
-  font-size: 2vmin;
+  font-size: 1.85vmin;
   font-weight: bold;
   margin-top: -0.35vmin;
 }
