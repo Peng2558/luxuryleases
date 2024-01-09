@@ -1,7 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
-# Create your models here.
 
 class Store(models.Model):
   name = models.CharField(max_length=100)
@@ -28,6 +27,7 @@ class Car(models.Model):
   
   class Meta:
     ordering = ['make', 'model']
+
   
 class CreditCard(models.Model):
   card_number = models.BigIntegerField()
@@ -38,6 +38,7 @@ class CreditCard(models.Model):
 
   def __str__(self):
     return f'{self.card_holder.last_name} {self.card_type}'
+  
 
 class Rental(models.Model):
   pickup_date = models.DateTimeField()

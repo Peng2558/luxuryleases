@@ -277,7 +277,6 @@ nav > #nav-links > .nav-store:hover {
   border-radius: 1vmin;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 0 3vmin 3vmin;
   width: 30%;
 }
@@ -317,6 +316,21 @@ nav > #nav-links > .nav-store:hover {
 
 
 /*===== USER PROFILE =====*/
+
+#user-profile .user-profile-button {
+  background-color: var(--base-layer);
+  border-radius: 0.5vmin;
+  color: inherit;
+  cursor: pointer;
+  margin-right: 1.5vmin;
+  padding: 0.25vmin 1vmin;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+#user-profile .user-profile-button:hover {
+  background-color: var(--nav-link-hover-bgcol);
+}
 
 #user-profile > .user-rentals,
 #car-admin > .user-rentals {
