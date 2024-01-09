@@ -35,11 +35,11 @@
     {% if allow_edit_delete %}
       <form action='{% url "rentals_edit" rental.id %}' method='POST'>
         {% csrf_token %}
-        <button type='submit'>Edit</button>
+        <button type='submit'>Edit rental</button>
       </form>
       <form action='{% url "rentals_delete" rental.id %}' method='POST'>
         {% csrf_token %}
-        <button type='submit'>Delete</button>
+        <button type='submit'>Cancel rental</button>
       </form>
     {% endif %}
   </div>
