@@ -21,7 +21,7 @@
 
 body {
   background-color: var(--base-layer);
-  font-family: sans-serif;
+  font-family: Lato, sans-serif;
   height: 100vh;
 }
 
@@ -214,6 +214,7 @@ nav > #nav-links > .nav-store:hover {
   opacity: 0.1;
   position: fixed;
   width: 90vw;
+  z-index: -1;
 }
 
 #home > #home-logo {
