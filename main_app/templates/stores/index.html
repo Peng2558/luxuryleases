@@ -40,15 +40,17 @@
           </form>
           <p>{{ store.address }}</p>
           {% if user.is_superuser %}
-            <form action='{% url "edit_store" store.id  %}' method='POST'>
-              {% csrf_token %}
-              <button type='submit'>Edit</button>
-            </form>
-            <form action='{% url "delete_store" store.id %}' method='POST'>
-              {% csrf_token %}
-              <button type='submit'>Delete</button>
-            </form>
-            {% endif %}
+            <div class='store-admin'>
+              <form action='{% url "edit_store" store.id  %}' method='POST'>
+                {% csrf_token %}
+                <button type='submit'>Edit store</button>
+              </form>
+              <form action='{% url "delete_store" store.id %}' method='POST'>
+                {% csrf_token %}
+                <button type='submit'>Delete store</button>
+              </form>
+            </div>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
