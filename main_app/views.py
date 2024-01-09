@@ -17,6 +17,12 @@ from .models import Car, Store, Rental, CreditCard
 
 base_rate = 139
 
+def calc_rate(date1, date2):
+    d = datetime(int(date1[0:4]),int(date1[5:7]), int(date1[8:10]))
+    p = datetime(int(date2[0:4]),int(date2[5:7]), int(date2[8:10]))
+    days = d - p
+    days = days.days
+    return days
 
 #===== PUBLIC =====
 
@@ -70,13 +76,13 @@ def users_detail(request, user_id):
     user = User.objects.get(id=user_id)
     upcoming_rentals = Rental.objects.filter(
         user=user,
-        pickup_date__gte=d
+        dropoff_date__gte=d
     ).order_by('pickup_date')
     past_rentals = Rental.objects.filter(
         user=user,
-        dropoff_date__lte=d
+        dropoff_date__lt=d
     ).order_by('-pickup_date')
-    rentals =Rental.objects.filter(id=user_id)
+    rentals = Rental.objects.filter(user=user_id)
     return render(request, 'users/detail.html', {
         'rentals': rentals,
         'upcoming_rentals': upcoming_rentals,
@@ -136,11 +142,7 @@ def rentals_new(request):
 
 @login_required
 def rentals_create(request):
-    d = datetime(int(request.POST['dropoff_date'][0:4]),int(request.POST['dropoff_date'][5:7]), int(request.POST['dropoff_date'][8:10]))
-    p = datetime(int(request.POST['pickup_date'][0:4]),int(request.POST['pickup_date'][5:7]), int(request.POST['pickup_date'][8:10]))
-    days = d - p
-    days = days.days
-    print(int(request.POST['dropoff_date'][0:4]), 'LOOK HERE!!!')
+    days = calc_rate(request.POST['dropoff_date'], request.POST['pickup_date'])
     new_rental = Rental.objects.create(
         pickup_date=request.POST['pickup_date'],
         dropoff_date=request.POST['dropoff_date'],
@@ -185,6 +187,7 @@ def rentals_edit(request, rental_id):
 
 @login_required
 def rentals_update(request, rental_id):
+    days = calc_rate(request.POST['dropoff_date'], request.POST['pickup_date'])
     rental = Rental.objects.get(id=rental_id)
     rental.car = Car.objects.get(id=request.POST['car'])
     rental.pickup_date = request.POST['pickup_date']
@@ -192,6 +195,7 @@ def rentals_update(request, rental_id):
     rental.dropoff_location = Store.objects.get(
         id=request.POST['dropoff_location']
     )
+    rental.rental_fee = days*base_rate
     rental.save()
     return redirect('rentals_detail', rental_id=rental_id)
 
