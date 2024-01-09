@@ -191,12 +191,15 @@ class RentalDelete(LoginRequiredMixin, DeleteView):
 @staff_member_required
 def admin_page(request):
    cars = Car.objects.all()
+   stores = Store.objects.all()
    return render(request, 'admin.html', {
-       'cars': cars
+       'cars': cars,
+       'stores':stores
    })
 
 @staff_member_required
 def add_car(request):
+   
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
@@ -205,19 +208,22 @@ def add_car(request):
             bucket = os.environ['S3_BUCKET']
             s3.upload_fileobj(photo_file, bucket, key)
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+           
+            car = Car.objects.create(
+                make = request.POST['make'],
+                model = request.POST['model'],
+                year = request.POST['year'],
+                license_plate = request.POST['license_plate'],
+                mileage = request.POST['mileage'],
+                current_store = Store.objects.get(id=request.POST['current_store']),
+                photo_url = url
+            )        
+            car.save()
         except Exception as e:
-            print('An error occurred uploading file to S3')
-            print(e)
-    car = Car.objects.create(
-        make = request.POST['make'],
-        model = request.POST['model'],
-        year = request.POST['year'],
-        license_plate = request.POST['license_plate'],
-        mileage = request.POST['mileage'],
-        current_store = Store.objects.get(store_id=request.POST['current_store']),
-        photo_url = url
-    )       
-    car.save()
+         print('An error occurred uploading file to S3')
+         print(e)
+
+    
     return redirect('admin')
 
 

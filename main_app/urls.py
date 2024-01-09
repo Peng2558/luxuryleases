@@ -18,7 +18,8 @@ urlpatterns = [
     path('users/login', views.users_login, name='users_login'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
     path('administrator/', views.admin_page,name='admin'),
-    path('administrator/', views.add_store, name='add_store'),
+    path('administrator/addcar', views.add_car,name='add_car'),
+    path('administrator/addstore', views.add_store, name='add_store'),
     
    
     
