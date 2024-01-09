@@ -5,6 +5,7 @@
     mapboxgl.accessToken = '{{ mapbox_access_token }}';
     let address;
     let coordinates;
+    let maps = [];
   </script>
 
   <div id='stores'>
@@ -20,12 +21,15 @@
             .then(res => res.json())
             .then(data => {
               coordinates = data.features[0].center;
-              new mapboxgl.Map({
+              maps.push(new mapboxgl.Map({
                 container: 'map-{{ store.id }}',
                 style: 'mapbox://styles/mapbox/streets-v12',
                 center: coordinates,
-                zoom: 9,
-              });
+                zoom: 12,
+              }));
+              new mapboxgl.Marker()
+                .setLngLat(coordinates)
+                .addTo(maps[maps.length - 1]);
             });
         </script>
         
