@@ -9,6 +9,11 @@
     <p><strong>Current mileage:</strong> {{ car.mileage }} miles</p>
     <p><strong>Current location:</strong> {{ car.current_store }} store</p>
 
+    <form action="{% url 'quick_car' car.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit">Rent This Vehicle</button>
+    </form>
+
     {% if user.is_superuser %}
       <div class='user-rentals'>
         <p class='section-title'>Rental History</p>

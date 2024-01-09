@@ -2,7 +2,9 @@
 
 {% block content %}
   <div id='cars'>
-    <p class='main-title'>Our Cars</p>
+    <p class='main-title'>
+      Our Cars {% if request.session.selected_store %} &mdash; {{ request.session.selected_store }}{% endif %}
+    </p>
     
     {% for car in cars %}
       {% if not request.session.selected_store %}

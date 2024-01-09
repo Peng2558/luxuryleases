@@ -110,6 +110,7 @@ def stores_index(request):
     stores = Store.objects.all()
     return render(request,'stores/index.html', {
         'stores': stores,
+        'mapbox_access_token': os.environ['MAPBOX_ACCESS_TOKEN']
     })
 
 
@@ -149,6 +150,10 @@ def rentals_create(request):
     new_rental.save()
     return redirect('users_detail', user_id=request.user.id)
 
+@login_required
+def rentals_car(request, car_id):
+    request.session['selected_car'] = Car.objects.get(id=car_id).id
+    return redirect('rentals_new')
 
 @login_required
 def rentals_detail(request, rental_id):
