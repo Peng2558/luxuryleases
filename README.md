@@ -6,10 +6,15 @@
 Welcome to Luxury Leases, a full stack Django application for luxury car rentals. Browse through our vehicles and choose a location to start your rental.
 
 ## Technologies Used
+
 <img src="https://miro.medium.com/v2/resize:fit:680/1*AgIAtwHs95QViOTpnh7UZg.png" width='100'><br>
 <img src="https://1000logos.net/wp-content/uploads/2020/08/PostgreSQL-Logo.png" width='150'><br>
 <img src="https://wpmaps.com/wp-content/uploads/2023/12/Mapbox-integration-in-wpmaps-1.png" width='100'>
 
+## Planning Materials
+
+[Trello](https://trello.com/b/zswfN3RK/luxury-leases)
+[LucidChart](https://lucid.app/lucidchart/fcef77a4-d32d-46bf-95c8-27a1d0148b64/edit?beaconFlow[…]3&invitationId=inv_5f949718-3979-40ea-bd69-fdd06a159cfe&page=0_0)
 
 ## Getting Started 
 
