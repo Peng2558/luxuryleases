@@ -15,7 +15,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel='stylesheet' href='{% static "css/style.css" %}'/>
 </head>
@@ -30,7 +30,7 @@
           <div id='nav-welcome-contents'>
             <span id='nav-welcome-label'>Welcome,</span>
             {% if user.is_superuser %}
-              <span id='nav-welcome-username'>
+              <span id='nav-welcome-username' style='color: #c00'>
                 Administrator
               </span>
             {% else %}
@@ -61,6 +61,7 @@
             <a class='nav-link' href='{% url "stores_index" %}'>Choose a Store</a>
           {% endif %}
         {% else %}
+          <a class='nav-link' href='{% url "stores_index" %}'>Our Stores</a>
           <a class='nav-link' href='{% url "admin" %}'>Admin Page</a>
         {% endif %}
 
