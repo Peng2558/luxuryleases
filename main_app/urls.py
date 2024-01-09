@@ -29,7 +29,7 @@ urlpatterns = [
     path('cars/<int:pk>/deletecar', views.CarDelete.as_view(), name='delete_car'),
     path('stores/<int:store_id>/editstore', views.edit_store, name='edit_store'),
     path('stores/<int:store_id>/updatestore', views.update_store, name='update_store'),
-    # path('stores/<int:pk>/deletestore', views.StoreDelete.as_view(), name='delete_store'),
+    path('stores/<int:pk>/deletestore', views.StoreDelete.as_view(), name='delete_store'),
     
    
     
