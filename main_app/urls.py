@@ -22,12 +22,14 @@ urlpatterns = [
     path('administrator/addcar', views.add_car,name='add_car'),
     path('administrator/addstore', views.add_store, name='add_store'),
     # path('cars/editcar', views.edit_car, name='edit_car'),
-    #  path('cars/updatecar', views.update_car, name='update_car'),
+    # path('cars/updatecar', views.update_car, name='update_car'),
     path('cars/<int:car_id>/editcar', views.edit_car, name='edit_car'),
     path('cars/<int:car_id>/updatecar', views.update_car, name='update_car'),
     # path('cars/deletecar', views.delete_car, name='delete_car'),
     path('cars/<int:pk>/deletecar', views.CarDelete.as_view(), name='delete_car'),
-
+    path('stores/<int:store_id>/editstore', views.edit_store, name='edit_store'),
+    path('stores/<int:store_id>/updatestore', views.update_store, name='update_store'),
+    path('stores/<int:pk>/deletestore', views.StoreDelete.as_view(), name='delete_store'),
     
    
     

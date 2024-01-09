@@ -254,10 +254,10 @@ def add_store(request):
         store_name = request.POST.get('store_name')
         store_address = request.POST.get('store_address')
         Store.objects.create(name=store_name, address=store_address)
-        return redirect('admin')  
+        return redirect('/stores/')  
     return render(request, 'admin')
 
-
+@staff_member_required
 def edit_car(request,car_id):
    
      car =Car.objects.get(id=car_id)
@@ -269,6 +269,7 @@ def edit_car(request,car_id):
         
     })
 
+@staff_member_required
 def update_car(request, car_id):
     car = Car.objects.get(id=car_id)
     if request.method == 'POST':
@@ -287,12 +288,31 @@ def update_car(request, car_id):
 
 
 
-# def delete_car(request,car_id):
-#    car = Car.objects.remove(id=car_id)
-#    return render(request, 'cars/update.html',{
-#        'car':cars_detail
-#    })
     
-class CarDelete(DeleteView):
-    model = Car
+class CarDelete(LoginRequiredMixin,DeleteView):
+    model = Car   
     success_url = '/'
+
+@staff_member_required
+def edit_store(request,store_id):
+    store = Store.objects.get(id=store_id)  
+    return render(request, 'stores/update.html', {      
+         
+         'store':store 
+        
+    }) 
+
+
+@staff_member_required
+def update_store(request,store_id):
+    store = Store.objects.get(id=store_id) 
+    if request.method == 'POST':
+        store.name = request.POST.get('store_name')
+        store.address = request.POST.get('store_address')
+        store.save()
+        return redirect('stores_index')  
+
+
+class StoreDelete(LoginRequiredMixin,DeleteView):
+    model = Store
+    success_url = '/stores/'

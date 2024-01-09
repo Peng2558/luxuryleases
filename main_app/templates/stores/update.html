@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Store Update</h1>
+<form action='{% url "update_store" store.id  %}' method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+      <p>
+        <label> Store Name:</label>
+        <input type='text' name='store_name' value="{{store.name}}" >
+      </p>
+      <p>
+        <label> Store Adress:</label>
+        <input type='text' name='store_address' value="{{store.address}}" >
+      </p>
+         
+    <button type='submit'>Confirm</button>
+  </form>
+
+{% endblock %}
