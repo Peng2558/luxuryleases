@@ -30,7 +30,7 @@
           <div id='nav-welcome-contents'>
             <span id='nav-welcome-label'>Welcome,</span>
             {% if user.is_superuser %}
-              <span id='nav-welcome-username'>
+              <span id='nav-welcome-username' style='color: #c00'>
                 Administrator
               </span>
             {% else %}
@@ -61,6 +61,7 @@
             <a class='nav-link' href='{% url "stores_index" %}'>Choose a Store</a>
           {% endif %}
         {% else %}
+          <a class='nav-link' href='{% url "stores_index" %}'>Our Stores</a>
           <a class='nav-link' href='{% url "admin" %}'>Admin Page</a>
         {% endif %}
 

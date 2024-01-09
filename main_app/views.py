@@ -27,7 +27,10 @@ def calc_rate(date1, date2):
 #===== PUBLIC =====
 
 def home(request):
-    return render(request, 'home.html')
+    img_url = Car.objects.order_by('?').first().photo_url
+    return render(request, 'home.html', {
+        'img_url': img_url
+    })
 
 
 def about(request):
