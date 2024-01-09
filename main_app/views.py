@@ -249,7 +249,7 @@ def add_store(request):
         return redirect('admin')  
     return render(request, 'admin')
 
-
+@staff_member_required
 def edit_car(request,car_id):
    
      car =Car.objects.get(id=car_id)
@@ -261,6 +261,7 @@ def edit_car(request,car_id):
         
     })
 
+@staff_member_required
 def update_car(request, car_id):
     car = Car.objects.get(id=car_id)
     if request.method == 'POST':
@@ -285,6 +286,6 @@ def update_car(request, car_id):
 #        'car':cars_detail
 #    })
     
-class CarDelete(DeleteView):
-    model = Car
+class CarDelete(LoginRequiredMixin,DeleteView):
+    model = Car   
     success_url = '/'
