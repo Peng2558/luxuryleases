@@ -70,6 +70,8 @@ def signup(request):
 
 def users_login(request):
     user_id = request.user.id
+    if user_id == 1:
+        return redirect('admin')
     return redirect('users_detail', user_id=user_id)
 
 

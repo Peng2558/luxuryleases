@@ -16,7 +16,7 @@
 
     <p>
       <strong>Pickup:</strong> {{ rental.pickup_date|date:'M j Y, P' }}
-      <strong>from</strong> {{ rental.car.current_store }}
+      <strong>&nbsp;from&nbsp;</strong> {{ rental.car.current_store }}
     </p>
     <p>
       <strong>Car:</strong> {{ rental.car.make }} {{ rental.car.model }}
@@ -26,7 +26,7 @@
     </p>
     <p>
       <strong>Dropoff:</strong> {{ rental.dropoff_date|date:'M j Y, P' }}
-      <strong>at</strong> {{ rental.dropoff_location }}
+      <strong>&nbsp;at&nbsp;</strong> {{ rental.dropoff_location }}
     </p>
     <p>
       <strong>Rental fee:</strong> ${{ rental.rental_fee|floatformat:2 }}

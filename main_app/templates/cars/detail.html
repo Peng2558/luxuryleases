@@ -7,38 +7,42 @@
     <img src='{{ car.photo_url }}'/>
 
     <p><strong>Current mileage:</strong> {{ car.mileage }} miles</p>
-    <p><strong>Current location:</strong> {{ car.current_store }} store</p>
+    <p class='p-mb'><strong>Current location:</strong> {{ car.current_store }} store</p>
    
-    <form action="{% url 'quick_car' car.id %}" method="POST">
-      {% csrf_token %}
-      <button type="submit">Rent This Vehicle</button>
-    </form>
+    {% if not user.is_superuser %}
+      <form action="{% url 'quick_car' car.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Rent This Vehicle</button>
+      </form>
+    {% endif %}
 
-    {% if user.is_superuser %}
-    <form action='{% url "edit_car" car.id  %}' method='POST'>
-      {% csrf_token %}
-      <button type='submit'>Edit</button>
-    </form>
-    <form action='{% url "delete_car" car.id %}' method='POST'>
-      {% csrf_token %}
-      <button type='submit'>Delete</button>
-    </form>
-  
-      <div class='user-rentals'>
-        <p class='section-title'>Rental History</p>
-        {% for rental in rentals %}
-          <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
-            <span class='user-rental-pickup'>
-              {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
-            </span>
-            <span class='user-rental-dropoff'>
-              &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
-            </span>
-          </a>
-         
-        {% endfor %}  
+    {% if user.is_superuser %}  
+      <div id='car-admin'>
+        <div class='user-rentals'>
+          <p class='section-title'>Rental History</p>
+          {% for rental in rentals %}
+            <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
+              <span class='user-rental-pickup'>
+                {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
+              </span>
+              <span class='user-rental-dropoff'>
+                &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
+              </span>
+            </a>          
+          {% endfor %}  
+        </div>
+
+        <div id='car-admin-actions'>
+          <form action='{% url "edit_car" car.id  %}' method='POST'>
+            {% csrf_token %}
+            <button type='submit'>Edit car</button>
+          </form>
+          <form action='{% url "delete_car" car.id %}' method='POST'>
+            {% csrf_token %}
+            <button type='submit'>Delete car</button>
+          </form>
+        </div>
       </div>
     {% endif %}
-   
   </div>
 {% endblock %}
