@@ -15,15 +15,18 @@
         <div id='map-{{ store.id }}' class='map'></div>
 
         <script>
-          token = '{{ mapbox_access_token }}'
           address = '{{ store.address }}'
-          fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}?access_token=${token}`).then(res => coordinates = res.features.center);
-          new mapboxgl.Map({
-            container: 'map-{{ store.id }}',
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: coordinates,
-            zoom: 9,
-          });
+          fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${mapboxgl.accessToken}`)
+            .then(res => res.json())
+            .then(data => {
+              coordinates = data.features[0].center;
+              new mapboxgl.Map({
+                container: 'map-{{ store.id }}',
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: coordinates,
+                zoom: 9,
+              });
+            });
         </script>
         
         <div class='store-info'>
