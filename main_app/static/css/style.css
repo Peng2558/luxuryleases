@@ -277,7 +277,6 @@ nav > #nav-links > .nav-store:hover {
   border-radius: 1vmin;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 0 3vmin 3vmin;
   width: 30%;
 }

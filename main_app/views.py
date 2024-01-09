@@ -15,6 +15,7 @@ from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from .forms import StoreForm
 from .models import Car, Store, Rental, CreditCard
 
+
 base_rate = 139
 
 def calc_rate(date1, date2):
@@ -23,6 +24,7 @@ def calc_rate(date1, date2):
     days = d - p
     days = days.days
     return days
+
 
 #===== PUBLIC =====
 
@@ -159,12 +161,16 @@ def rentals_create(request):
     new_rental.save()
     return redirect('users_detail', user_id=request.user.id)
 
+
 @login_required
 def rentals_car(request, car_id):
     car = Car.objects.get(id=car_id)
-    request.session['selected_store'] = Store.objects.get(id=car.current_store_id).name
+    request.session['selected_store'] = Store.objects.get(
+        id=car.current_store_id
+    ).name
     request.session['selected_car'] = car.id
     return redirect('rentals_new')
+
 
 @login_required
 def rentals_detail(request, rental_id):
@@ -223,9 +229,9 @@ def admin_page(request):
        'stores':stores
    })
 
+
 @staff_member_required
 def add_car(request):
-   
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
@@ -234,22 +240,21 @@ def add_car(request):
             bucket = os.environ['S3_BUCKET']
             s3.upload_fileobj(photo_file, bucket, key)
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-           
             car = Car.objects.create(
-                make = request.POST['make'],
-                model = request.POST['model'],
-                year = request.POST['year'],
-                license_plate = request.POST['license_plate'],
-                mileage = request.POST['mileage'],
-                current_store = Store.objects.get(id=request.POST['current_store']),
-                photo_url = url
+                make=request.POST['make'],
+                model=request.POST['model'],
+                year=request.POST['year'],
+                license_plate=request.POST['license_plate'],
+                mileage=request.POST['mileage'],
+                current_store=Store.objects.get(
+                    id=request.POST['current_store']
+                ),
+                photo_url=url
             )        
             car.save()
         except Exception as e:
-         print('An error occurred uploading file to S3')
-         print(e)
-
-    
+            print('An error occurred uploading file to S3')
+            print(e)    
     return redirect('admin')
 
 
@@ -262,17 +267,16 @@ def add_store(request):
         return redirect('/stores/')  
     return render(request, 'admin')
 
+
 @staff_member_required
 def edit_car(request,car_id):
-   
-     car =Car.objects.get(id=car_id)
-     stores= Store.objects.all()
-     return render(request, 'cars/update.html', {
-       
-         'car':car,
-         'stores':stores  
-        
+    car = Car.objects.get(id=car_id)
+    stores = Store.objects.all()
+    return render(request, 'cars/update.html', {
+        'car': car,
+        'stores': stores  
     })
+
 
 @staff_member_required
 def update_car(request, car_id):
@@ -284,27 +288,22 @@ def update_car(request, car_id):
         car.license_plate = request.POST.get('license_plate')
         car.mileage = request.POST.get('mileage') 
         current_store_id = request.POST.get('current_store')
-
         if current_store_id:
             car.current_store = Store.objects.get(id=current_store_id)
-        
         car.save()
         return redirect('cars_detail', car_id=car.id) 
 
 
-
-    
 class CarDelete(LoginRequiredMixin,DeleteView):
     model = Car   
     success_url = '/'
+
 
 @staff_member_required
 def edit_store(request,store_id):
     store = Store.objects.get(id=store_id)  
     return render(request, 'stores/update.html', {      
-         
-         'store':store 
-        
+        'store':store 
     }) 
 
 
