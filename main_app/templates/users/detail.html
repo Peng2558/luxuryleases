@@ -20,6 +20,23 @@
     </div>
 
     <div class='user-rentals'>
+      <p class='section-title'>Current Rentals</p>
+
+      {% for rental in rentals %}
+
+          <a class='user-rental' href='{% url "rentals_detail" rental.id %}'>
+            <span class='user-rental-pickup'>
+              {{ rental.pickup_date|date:'M j Y' }}&nbsp;&nbsp;&nbsp;{{ rental.car.current_store }}
+            </span>
+            <span class='user-rental-dropoff'>
+              &nbsp;&rarr;&nbsp;&nbsp;{{ rental.dropoff_location }}&nbsp;&nbsp;&nbsp;{{ rental.dropoff_date|date:'M j Y' }}
+            </span>
+          </a>  
+
+      {% endfor %}
+    </div>
+
+    <div class='user-rentals'>
       <p class='section-title'>Your Past Rentals</p>
 
       {% for rental in past_rentals %}

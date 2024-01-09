@@ -76,7 +76,9 @@ def users_detail(request, user_id):
         user=user,
         dropoff_date__lte=d
     ).order_by('-pickup_date')
+    rentals =Rental.objects.filter(id=user_id)
     return render(request, 'users/detail.html', {
+        'rentals': rentals,
         'upcoming_rentals': upcoming_rentals,
         'past_rentals': past_rentals,
         'user': user
