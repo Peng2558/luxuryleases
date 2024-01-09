@@ -251,29 +251,42 @@ def add_store(request):
         return redirect('admin')  
     return render(request, 'admin')
 
-def edit_car(request):
-     car = Car.objects.all()
-     store = Store.objects.all()
+
+def edit_car(request,car_id):
+   
+     car =Car.objects.get(id=car_id)
+     stores= Store.objects.all()
      return render(request, 'cars/update.html', {
        
          'car':car,
-         'store':store
+         'stores':stores  
+        
     })
 
-def update_car(request,car_id):
+def update_car(request, car_id):
     car = Car.objects.get(id=car_id)
-    car.make = request.POST['car.make']
-    car.model = request.POST['car.model']
-    car.year = request.POST['car.year']
-    car.make = request.POST['car.make']
-    car.license_plate=request.POST['car.license_plate']
-    car.mileage = request.POST['car.mileage']
-    car.current_store= request.POST['car.current_store']
-    car.save()
-    return redirect('update_car', car_id=car_id)
+    if request.method == 'POST':
+        car.make = request.POST.get('make')
+        car.model = request.POST.get('model')  
+        car.year = request.POST.get('year')   
+        car.license_plate = request.POST.get('license_plate')
+        car.mileage = request.POST.get('mileage') 
+        current_store_id = request.POST.get('current_store')
+
+        if current_store_id:
+            car.current_store = Store.objects.get(id=current_store_id)
+        
+        car.save()
+        return redirect('cars_detail', car_id=car.id) 
 
 
 
-def delete_car(request):
-   cars = Car.objects.all()
-   return render(request, 'admin')
+# def delete_car(request,car_id):
+#    car = Car.objects.remove(id=car_id)
+#    return render(request, 'cars/update.html',{
+#        'car':cars_detail
+#    })
+    
+class CarDelete(DeleteView):
+    model = Car
+    success_url = '/'

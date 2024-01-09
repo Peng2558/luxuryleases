@@ -38,7 +38,7 @@
             {% csrf_token %}
             <button type='submit'>{{ store.name }}</button>
           </form>
-          {{ store.address }}
+          <p>{{ store.address }}</p>
         </div>
       </div>
     {% endfor %}
