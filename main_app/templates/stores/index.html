@@ -1,14 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <script>
+    mapboxgl.accessToken = '{{ mapbox_access_token }}';
+    let address;
+    let coordinates;
+  </script>
+
   <div id='stores'>
     <p class='main-title'>Our Store Locations</p>
-    
+
     {% for store in stores %}
-      <form action='{% url "select_store" store.id %}' method='POST'>
-        {% csrf_token %}
-        <button type='submit'>{{ store.name }}</button>
-      </form>
+      <div class='store'>
+        <div id='map-{{ store.id }}' class='map'></div>
+
+        <script>
+          address = '{{ store.address }}'
+          fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${mapboxgl.accessToken}`)
+            .then(res => res.json())
+            .then(data => {
+              coordinates = data.features[0].center;
+              new mapboxgl.Map({
+                container: 'map-{{ store.id }}',
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: coordinates,
+                zoom: 9,
+              });
+            });
+        </script>
+        
+        <div class='store-info'>
+          <form action='{% url "select_store" store.id %}' method='POST'>
+            {% csrf_token %}
+            <button type='submit'>{{ store.name }}</button>
+          </form>
+          {{ store.address }}
+        </div>
+      </div>
     {% endfor %}
   </div>
 {% endblock %}
