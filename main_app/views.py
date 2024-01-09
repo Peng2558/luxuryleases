@@ -107,6 +107,7 @@ def stores_index(request):
     stores = Store.objects.all()
     return render(request,'stores/index.html', {
         'stores': stores,
+        'mapbox_access_token': os.environ['MAPBOX_ACCESS_TOKEN']
     })
 
 

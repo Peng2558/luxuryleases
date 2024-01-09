@@ -258,6 +258,20 @@ nav > #nav-links > .nav-store:hover {
   margin: 0 auto 3vmin 0;
 }
 
+#stores > .store {
+  display: flex;
+  margin-bottom: 4vmin;
+}
+
+.map {
+  border-radius: 1vmin;
+  box-shadow: 0.5vmin 0.5vmin 0.5vmin var(--base-layer);
+  height: 150px;
+  margin-right: 2vmin;
+  width: 200px;
+  z-index: 10;
+}
+
 
 /*===== USER PROFILE =====*/
 
