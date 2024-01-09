@@ -27,9 +27,9 @@ urlpatterns = [
     path('cars/<int:car_id>/updatecar', views.update_car, name='update_car'),
     # path('cars/deletecar', views.delete_car, name='delete_car'),
     path('cars/<int:pk>/deletecar', views.CarDelete.as_view(), name='delete_car'),
-    # path('stores/<int:store_id>/editstore', views.edit_store, name='edit_store'),
-
-
+    path('stores/<int:store_id>/editstore', views.edit_store, name='edit_store'),
+    path('stores/<int:store_id>/updatestore', views.update_store, name='update_store'),
+    # path('stores/<int:pk>/deletestore', views.StoreDelete.as_view(), name='delete_store'),
     
    
     

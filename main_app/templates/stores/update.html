@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Store Update</h1>
+<form action='{% url "update_store" store.id  %}' method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+   
+        <label>Store:</label>
+        <select name='current_store'>
+          <option  value=''>Select a store</option>
+          {% for store in stores %}
+          {% if store.id == car.current_store.id %}
+          <option selected value='{{ store.id }}'>{{ store.name }}</option>
+          {% else %}
+          <option value='{{ store.id }}'>{{ store.name }}</option>
+          {% endif %}
+          {% endfor %}
+         
+        </select>
+      </p>
+      <!-- <p>
+        <label> Photo:</label>
+        <input type='file' name='photo-file' >
+      </p> -->
+   
+    <button type='submit'>Confirm</button>
+  </form>
+
+{% endblock %}

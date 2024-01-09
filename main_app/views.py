@@ -289,3 +289,24 @@ def update_car(request, car_id):
 class CarDelete(LoginRequiredMixin,DeleteView):
     model = Car   
     success_url = '/'
+
+def edit_store(request,store_id):
+    store = Store.objects.get(id=store_id)  
+    return render(request, 'stores/update.html', {      
+         
+         'store':store 
+        
+    }) 
+
+def update_store(request,store_id):
+    store = Store.objects.get(id=store_id) 
+    if request.method == 'POST':
+        store.name = request.POST.get('name')
+        store.address = request.POST.get('address')  
+    
+        store.save()
+    return redirect('stores_index', store_id=store.id)  
+
+class StoreDelete(DeleteView):
+    model = Store
+    success_url = '/'
