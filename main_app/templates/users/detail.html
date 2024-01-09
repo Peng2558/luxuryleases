@@ -5,6 +5,13 @@
     <p class='main-title'>Your Profile</p>
 
     <div class='user-rentals'>
+      <p class='section-title'>Your Account Details</p>
+
+      <p><a class='user-profile-button' href='#'>Change</a><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><a class='user-profile-button' href='#'>Change</a><strong>E-mail:</strong> {{ user.email }}</p>
+    </div>
+
+    <div class='user-rentals'>
       <p class='section-title'>Your Current/Upcoming Rentals</p>
 
       {% for rental in upcoming_rentals %}
