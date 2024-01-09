@@ -2,6 +2,7 @@ import boto3
 import datetime
 import os
 import uuid
+from datetime import datetime, timedelta
 from django import forms
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login
@@ -13,6 +14,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from .forms import StoreForm
 from .models import Car, Store, Rental, CreditCard
+
+base_rate = 139
 
 
 #===== PUBLIC =====
@@ -63,7 +66,7 @@ def users_login(request):
 
 @login_required
 def users_detail(request, user_id):
-    d = datetime.date.today()
+    d = datetime.today()
     user = User.objects.get(id=user_id)
     upcoming_rentals = Rental.objects.filter(
         user=user,
@@ -113,7 +116,7 @@ def stores_index(request):
 @login_required
 def select_store(request, store_id):
     request.session['selected_store'] = Store.objects.get(id=store_id).name
-    return redirect('stores_index')
+    return redirect('cars_index')
 
 
 #===== RENTALS =====
@@ -130,13 +133,18 @@ def rentals_new(request):
 
 @login_required
 def rentals_create(request):
+    d = datetime(int(request.POST['dropoff_date'][0:4]),int(request.POST['dropoff_date'][5:7]), int(request.POST['dropoff_date'][8:10]))
+    p = datetime(int(request.POST['pickup_date'][0:4]),int(request.POST['pickup_date'][5:7]), int(request.POST['pickup_date'][8:10]))
+    days = d - p
+    days = days.days
+    print(int(request.POST['dropoff_date'][0:4]), 'LOOK HERE!!!')
     new_rental = Rental.objects.create(
         pickup_date=request.POST['pickup_date'],
         dropoff_date=request.POST['dropoff_date'],
         dropoff_location=Store.objects.get(id=request.POST['dropoff_location']),
         car=Car.objects.get(id=request.POST['car']),
         user=request.user,
-        rental_fee=400
+        rental_fee=days*base_rate
     )
     new_rental.save()
     return redirect('users_detail', user_id=request.user.id)
@@ -145,7 +153,7 @@ def rentals_create(request):
 @login_required
 def rentals_detail(request, rental_id):
     rental = Rental.objects.get(id=rental_id)
-    d = datetime.datetime.now()
+    d = datetime.now()
     allow_edit_delete = rental.dropoff_date > d
     request.session['selected_store'] = Store.objects.get(
         id=rental.car.current_store.id

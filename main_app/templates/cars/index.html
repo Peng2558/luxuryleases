@@ -5,10 +5,17 @@
     <p class='main-title'>Our Cars</p>
     
     {% for car in cars %}
+      {% if not request.session.selected_store %}
       <a class='car-list-item' href='{% url "cars_detail" car.id %}'>
         <img src='{{ car.photo_url }}'/>
         {{ car.make }} {{ car.model }}
-      </a>
+        </a>
+      {% elif car.current_store.name == request.session.selected_store %}
+        <a class='car-list-item' href='{% url "cars_detail" car.id %}'>
+        <img src='{{ car.photo_url }}'/>
+        {{ car.make }} {{ car.model }}
+        </a>
+      {% endif %}
     {% endfor %}
   </div>
 {% endblock %}
