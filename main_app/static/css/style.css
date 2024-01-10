@@ -209,6 +209,7 @@ nav > #nav-links > .nav-store:hover {
   height: 100%;
   justify-content: center;
   position: relative;
+  text-align: center;
 }
 
 #home > #home-img {
@@ -223,7 +224,12 @@ nav > #nav-links > .nav-store:hover {
   font-family: 'Oleo Script';
   font-size: 12vmin;
   letter-spacing: 0.4vmin;
-  margin-bottom: 4vmin;
+  margin-bottom: 2vmin;
+}
+
+#home > .tagline {
+  font-size: 3vmin;
+  margin-bottom: 3vmin;
 }
 
 #home > .main-content {
