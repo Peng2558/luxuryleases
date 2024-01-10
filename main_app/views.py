@@ -98,6 +98,22 @@ def users_detail(request, user_id):
     })
 
 
+@login_required
+def users_edit(request, user_id):
+    return render(request, 'users/update.html')
+
+
+@login_required
+def users_update(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.first_name = request.POST['first_name']
+    user.last_name = request.POST['last_name']
+    user.username = request.POST['email']
+    user.email = request.POST['email']
+    user.save()
+    return redirect('users_detail', user_id = user.id)
+
+
 #===== CARS =====
 
 @login_required

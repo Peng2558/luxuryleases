@@ -68,6 +68,8 @@ urlpatterns = [
     #===== USERS =====
     path('users/login', views.users_login, name='users_login'),
     path('users/<int:user_id>/', views.users_detail, name='users_detail'),
+    path('users/<int:user_id>/edit', views.users_edit, name='users_edit'),
+    path('users/<int:user_id>/update', views.users_update, name='users_update'),
 
     #===== ADMIN =====
     path('administrator/', views.admin_page,name='admin'),
